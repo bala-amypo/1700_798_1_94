@@ -1,45 +1,32 @@
-package com.example.demo.service.impl;
-
-import java.time.Instant;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.demo.model.UsagePatternModel;
-import com.example.demo.repository.UsagePatternModelRepository;
-import com.example.demo.service.UsagePatternModelService;
-
 @Service
-public class UsagePatternModelServiceImpl implements UsagePatternModelService {
-
-    private final UsagePatternModelRepository repository;
+public class UsagePatternModelServiceImpl 
+        implements UsagePatternModelService {
 
     @Autowired
-    public UsagePatternModelServiceImpl(UsagePatternModelRepository repository) {
-        this.repository = repository;
-    }
+    private UsagePatternModelRepository repo;
 
     @Override
-    public UsagePatternModel save(UsagePatternModel model) {
+    public UsagePatternModel createModel(UsagePatternModel model) {
         model.setCreatedAt(Instant.now());
-        return repository.save(model);
+        return repo.save(model);
     }
 
     @Override
-    public UsagePatternModel update(Long id, UsagePatternModel model) {
-        UsagePatternModel existing = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Usage pattern not found"));
-
+    public UsagePatternModel updateModel(Long id, UsagePatternModel model) {
+        UsagePatternModel existing = repo.findById(id).orElseThrow();
         existing.setPatternName(model.getPatternName());
         existing.setDescription(model.getDescription());
         existing.setUpdatedAt(Instant.now());
-
-        return repository.save(existing);
+        return repo.save(existing);
     }
 
     @Override
-    public List<UsagePatternModel> getAll() {
-        return repository.findAll();
+    public UsagePatternModel getModelForBin(Long binId) {
+        return repo.findByBinId(binId);
+    }
+
+    @Override
+    public List<UsagePatternModel> getAllModels() {
+        return repo.findAll();
     }
 }

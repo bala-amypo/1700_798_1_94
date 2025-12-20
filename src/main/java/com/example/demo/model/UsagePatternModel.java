@@ -7,31 +7,62 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "usage_pattern_model")
 public class UsagePatternModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "bin_id",nullable =false)
-    private Bin bin;
-
-    @Min(0)
-    private Double avgDailyIncreaseWeekday;
-
-    
-    @Min(0)
-    private Double avgDailyIncreaseWeekend;
 
     @Column(nullable = false)
-    private Instant lastUpdated;
+    private String patternName;
 
-    @Column(nullable = false)
-    private Boolean active = true;
+    @Column(length = 500)
+    private String description;
+
+    @Column(nullable = false, updatable = false)
+    private Instant createdAt;
+
+    private Instant updatedAt;
+
+    /* =======================
+       JPA Lifecycle Callbacks
+       ======================= */
+
+    @PrePersist
+    protected void onCreate() {
+        this.createdAt = Instant.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        this.updatedAt = Instant.now();
+    }
+
+    /* =======================
+       Constructors
+       ======================= */
+
+    public UsagePatternModel() {
+    }
+
+    public UsagePatternModel(Long id, String patternName, String description,
+                             Instant createdAt, Instant updatedAt) {
+        this.id = id;
+        this.patternName = patternName;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+    /* =======================
+       Getters and Setters
+       ======================= */
 
     public Long getId() {
         return id;
@@ -41,58 +72,35 @@ public class UsagePatternModel {
         this.id = id;
     }
 
-    public Bin getBin() {
-        return bin;
+    public String getPatternName() {
+        return patternName;
     }
 
-    public void setBin(Bin bin) {
-        this.bin = bin;
+    public void setPatternName(String patternName) {
+        this.patternName = patternName;
     }
 
-    public Double getAvgDailyIncreaseWeekday() {
-        return avgDailyIncreaseWeekday;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAvgDailyIncreaseWeekday(Double avgDailyIncreaseWeekday) {
-        this.avgDailyIncreaseWeekday = avgDailyIncreaseWeekday;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Double getAvgDailyIncreaseWeekend() {
-        return avgDailyIncreaseWeekend;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public void setAvgDailyIncreaseWeekend(Double avgDailyIncreaseWeekend) {
-        this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Instant getLastUpdated() {
-        return lastUpdated;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public void setLastUpdated(Instant lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public UsagePatternModel() {
-    }
-
-    public UsagePatternModel(Long id, Bin bin, @Min(0) Double avgDailyIncreaseWeekday,
-            @Min(0) Double avgDailyIncreaseWeekend, Instant lastUpdated, Boolean active) {
-        this.id = id;
-        this.bin = bin;
-        this.avgDailyIncreaseWeekday = avgDailyIncreaseWeekday;
-        this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend;
-        this.lastUpdated = lastUpdated;
-        this.active = active;
-    }
-
-
 }
