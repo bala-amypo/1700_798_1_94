@@ -1,50 +1,11 @@
-package com.example.demo.model;
+package com.example.demo.service;
 
-import jakarta.persistence.*;
+import com.example.demo.model.User;
+import java.util.List;
 
-@Entity
-@Table(name = "users")
-public class User {
+public interface UserService {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    User saveUser(User user);
 
-    private String fullName;
-
-    @Column(unique = true)
-    private String email;
-
-    private String password;
-    private String role;
-
-    public User() {
-    }
-
-    public User(String fullName, String email, String password, String role) {
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getRole() {
-        return role;
-    }
+    List<User> getAllUsers();
 }
