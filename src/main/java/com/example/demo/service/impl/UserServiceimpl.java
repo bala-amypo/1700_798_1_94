@@ -1,51 +1,28 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class UserServiceimpl implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
-    // Constructor injection ONLY (TestNG compatible)
-    public UserServiceimpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+    public UserServiceimpl(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
-    public User registerUser(String fullName, String email, String password) {
-
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw new BadRequestException("email already exists");
-        }
-
-        String encodedPassword = passwordEncoder.encode(password);
-
-        User user = new User(
-                fullName,
-                email,
-                encodedPassword,
-                "USER"   // default role
-        );
-
+    public User saveUser(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new ResourceNotFoundException("user not found"));
-    }
-
-    @Override
-    public boolean exists(String email) {
-        return userRepository.findByEmail(email).isPresent();
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 }
