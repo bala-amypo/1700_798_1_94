@@ -15,11 +15,13 @@ public class ZoneServiceImpl implements ZoneService {
         this.zoneRepository = zoneRepository;
     }
 
+    @Override
     public Zone createZone(Zone zone) {
         zone.setActive(true);
         return zoneRepository.save(zone);
     }
 
+    @Override
     public Zone updateZone(Long id, Zone zone) {
         Zone existing = getZoneById(id);
         existing.setZoneName(zone.getZoneName());
@@ -27,15 +29,18 @@ public class ZoneServiceImpl implements ZoneService {
         return zoneRepository.save(existing);
     }
 
+    @Override
     public Zone getZoneById(Long id) {
         return zoneRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("zone not found"));
     }
 
+    @Override
     public List<Zone> getAllZones() {
         return zoneRepository.findAll();
     }
 
+    @Override
     public void deactivateZone(Long id) {
         Zone zone = getZoneById(id);
         zone.setActive(false);

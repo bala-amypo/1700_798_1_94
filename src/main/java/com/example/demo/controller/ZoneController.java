@@ -21,8 +21,23 @@ public class ZoneController {
         return zoneService.createZone(zone);
     }
 
+    @PutMapping("/{id}")
+    public Zone update(@PathVariable Long id, @RequestBody Zone zone) {
+        return zoneService.updateZone(id, zone);
+    }
+
+    @GetMapping("/{id}")
+    public Zone get(@PathVariable Long id) {
+        return zoneService.getZoneById(id);
+    }
+
     @GetMapping
-    public List<Zone> all() {
+    public List<Zone> getAll() {
         return zoneService.getAllZones();
+    }
+
+    @PutMapping("/{id}/deactivate")
+    public void deactivate(@PathVariable Long id) {
+        zoneService.deactivateZone(id);
     }
 }
