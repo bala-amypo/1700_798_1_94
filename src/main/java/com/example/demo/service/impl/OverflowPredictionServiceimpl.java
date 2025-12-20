@@ -14,19 +14,29 @@ public class OverflowPredictionServiceimpl implements OverflowPredictionService 
     @Autowired
     private OverflowPredictionRepository overflowPredictionRepository;
 
+    // Get prediction by ID
     @Override
     public OverflowPrediction getPredictionById(Long id) {
         return overflowPredictionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Prediction not found for id: " + id));
     }
 
+    // Generate prediction for a bin
     @Override
-    public List<OverflowPrediction> getLatestPredictionsForZone(Long zoneId) {
-        return overflowPredictionRepository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
+    public OverflowPrediction generatePrediction(Long binId) {
+        List<OverflowPrediction> list = overflowPredictionRepository.findByBinIdOrderByCreatedAtDesc(binId);
+        return list.isEmpty() ? null : list.get(0); // latest prediction
     }
 
+    // Get all predictions for a bin
     @Override
     public List<OverflowPrediction> getPredictionsForBin(Long binId) {
         return overflowPredictionRepository.findByBinId(binId);
+    }
+
+    // Get latest predictions for a zone
+    @Override
+    public List<OverflowPrediction> getLatestPredictionsForZone(Long zoneId) {
+        return overflowPredictionRepository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
     }
 }
