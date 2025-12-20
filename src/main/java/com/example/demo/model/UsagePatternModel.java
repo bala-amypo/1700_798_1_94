@@ -1,10 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "usage_pattern_models")
 public class UsagePatternModel {
 
     @Id
@@ -15,38 +14,42 @@ public class UsagePatternModel {
     @JoinColumn(name = "bin_id")
     private Bin bin;
 
-    private Double avgDailyIncreaseWeekday;
-    private Double avgDailyIncreaseWeekend;
-    private Timestamp lastUpdated;
+    private String patternType;
 
-    public UsagePatternModel() {
-    }
+    private LocalDateTime createdAt;
 
-    public UsagePatternModel(Bin bin, Double avgDailyIncreaseWeekday,
-                             Double avgDailyIncreaseWeekend, Timestamp lastUpdated) {
-        this.bin = bin;
-        this.avgDailyIncreaseWeekday = avgDailyIncreaseWeekday;
-        this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend;
-        this.lastUpdated = lastUpdated;
-    }
+    // ===== GETTERS & SETTERS =====
 
     public Long getId() {
         return id;
+    }
+
+    // 🔥 THIS FIXES THE ERROR
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Bin getBin() {
         return bin;
     }
 
-    public Double getAvgDailyIncreaseWeekday() {
-        return avgDailyIncreaseWeekday;
+    public void setBin(Bin bin) {
+        this.bin = bin;
     }
 
-    public Double getAvgDailyIncreaseWeekend() {
-        return avgDailyIncreaseWeekend;
+    public String getPatternType() {
+        return patternType;
     }
 
-    public Timestamp getLastUpdated() {
-        return lastUpdated;
+    public void setPatternType(String patternType) {
+        this.patternType = patternType;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
