@@ -10,7 +10,6 @@ public interface BinService {
     Bin updateBin(Long id, Bin bin);
 
     Bin getBinById(Long id);
-
     List<Bin> getAllBins();
 
     void deactivateBin(Long id);
