@@ -8,5 +8,7 @@ import java.util.List;
 
 @Repository
 public interface UsagePatternModelRepository extends JpaRepository<UsagePatternModel, Long> {
+
+    // Used in getModelForBin()
     List<UsagePatternModel> findByBinIdOrderByCreatedAtDesc(Long binId);
 }
