@@ -9,7 +9,9 @@ import com.example.demo.repository.ZoneRepository;
 import com.example.demo.service.BinService;
 import org.springframework.stereotype.Service;
 
-@Service   // ⭐⭐⭐ THIS IS REQUIRED
+import java.util.List;
+
+@Service
 public class BinServiceImpl implements BinService {
 
     private final BinRepository binRepository;
@@ -35,5 +37,37 @@ public class BinServiceImpl implements BinService {
         return binRepository.save(bin);
     }
 
-    // other methods...
+    @Override
+    public Bin updateBin(Long id, Bin bin) {
+        Bin existing = binRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
+
+        existing.setIdentifier(bin.getIdentifier());
+        existing.setLocationDescription(bin.getLocationDescription());
+        existing.setLatitude(bin.getLatitude());
+        existing.setLongitude(bin.getLongitude());
+        existing.setCapacityLiters(bin.getCapacityLiters());
+
+        return binRepository.save(existing);
+    }
+
+    @Override
+    public Bin getBinById(Long id) {
+        return binRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
+    }
+
+    @Override
+    public List<Bin> getAllBins() {
+        return binRepository.findAll();
+    }
+
+    @Override
+    public void deactivateBin(Long id) {
+        Bin bin = binRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
+
+        bin.setActive(false);
+        binRepository.save(bin);
+    }
 }
