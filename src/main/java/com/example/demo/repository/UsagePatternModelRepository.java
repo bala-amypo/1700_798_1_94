@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.demo.model.Bin;
 import com.example.demo.model.UsagePatternModel;
-
 public interface UsagePatternModelRepository
         extends JpaRepository<UsagePatternModel, Long> {
 
-    Optional<UsagePatternModel> findTop1ByBinOrderByLastUpdatedDesc(Bin bin);
+    List<UsagePatternModel> findByBinId(Long binId);
 }

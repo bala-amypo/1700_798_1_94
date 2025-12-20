@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Zone;
 import com.example.demo.repository.ZoneRepository;
 import com.example.demo.service.ZoneService;
+
 @Service
 public class ZoneServiceImpl implements ZoneService {
 
@@ -25,9 +26,7 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
-    public void deactivateZone(Long id) {
-        Zone zone = repo.findById(id).orElseThrow();
-        zone.setActive(false);
-        repo.save(zone);
+    public Zone getZoneById(Long id) {
+        return repo.findById(id).orElse(null);
     }
 }
