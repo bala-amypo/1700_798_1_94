@@ -28,16 +28,4 @@ public class Bin {
     private Boolean active = true;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-
-    public Bin(String identifier, String locationDescription, Double latitude, Double longitude, Zone zone, Double capacityLiters, Boolean active, Timestamp createdAt, Timestamp updatedAt) {
-        this.identifier = identifier;
-        this.locationDescription = locationDescription;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.zone = zone;
-        this.capacityLiters = capacityLiters;
-        this.active = active;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
 }
