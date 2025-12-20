@@ -20,10 +20,7 @@ public class OverflowPredictionServiceimpl implements OverflowPredictionService 
     }
 
     @Override
-    public OverflowPrediction getLatestPredictionsForZone(Long zoneId) {
-        List<OverflowPrediction> list = overflowPredictionRepository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
-        return list.isEmpty() ? null : list.get(0);
+    public List<OverflowPrediction> getLatestPredictionsForZone(Long zoneId) {
+        return overflowPredictionRepository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
     }
-
-    // Add other methods from OverflowPredictionService interface if needed
 }
