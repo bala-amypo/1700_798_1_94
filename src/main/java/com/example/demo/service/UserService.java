@@ -1,12 +1,11 @@
 package com.example.demo.service;
 
 import com.example.demo.model.User;
+import java.util.List;
 
 public interface UserService {
 
-    User registerUser(String fullName, String email, String password);
+    User saveUser(User user);
 
-    User getByEmail(String email);
-
-    boolean exists(String email);
+    List<User> getAllUsers();
 }
