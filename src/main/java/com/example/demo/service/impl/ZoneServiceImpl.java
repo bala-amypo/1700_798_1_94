@@ -8,31 +8,26 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.Zone;
 import com.example.demo.repository.ZoneRepository;
 import com.example.demo.service.ZoneService;
-
 @Service
 public class ZoneServiceImpl implements ZoneService {
 
-    private final ZoneRepository repository;
-
     @Autowired
-    public ZoneServiceImpl(ZoneRepository repository) {
-        this.repository = repository;
-    }
+    private ZoneRepository repo;
 
     @Override
     public Zone createZone(Zone zone) {
-        return repository.save(zone);
+        return repo.save(zone);
     }
 
     @Override
     public List<Zone> getAllZones() {
-        return repository.findAll();
+        return repo.findAll();
     }
 
     @Override
-    public String getZoneName(Long id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Zone not found"))
-                .getName(); // ✅ NOT getZoneName()
+    public void deactivateZone(Long id) {
+        Zone zone = repo.findById(id).orElseThrow();
+        zone.setActive(false);
+        repo.save(zone);
     }
 }
