@@ -23,10 +23,10 @@ public class FillLevelRecordServiceimpl implements FillLevelRecordService {
     }
 
     @Override
-    public List<FillLevelRecord> getTopNRecordsByBinId(Long binId, int n) {
+    public List<FillLevelRecord> getRecentRecords(Long binId, int n) {
         Pageable topN = PageRequest.of(0, n);
         return fillLevelRecordRepository.findByBinIdOrderByCreatedAtDesc(binId, topN);
     }
 
-    // Add other service methods if needed
+    // Add other methods from FillLevelRecordService interface if needed
 }
