@@ -1,7 +1,5 @@
 package com.example.demo.model;
-
 import java.time.Instant;
-
 import jakarta.persistence.*;
 
 @Entity
