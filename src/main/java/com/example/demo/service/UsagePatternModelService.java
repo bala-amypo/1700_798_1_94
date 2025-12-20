@@ -5,12 +5,9 @@ import com.example.demo.model.UsagePatternModel;
 import java.util.List;
 
 public interface UsagePatternModelService {
+    // Create a new usage pattern record
+    UsagePatternModel create(UsagePatternModel model);
 
-    UsagePatternModel createModel(UsagePatternModel model);
-
-    UsagePatternModel updateModel(Long id, UsagePatternModel model);
-
-    UsagePatternModel getModelForBin(Long binId);
-
-    List<UsagePatternModel> getAllModels();
+    // Get records for a specific bin
+    List<UsagePatternModel> getRecordsForBin(Long binId);
 }
