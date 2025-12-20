@@ -1,52 +1,31 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.ResourceNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.example.demo.service.UserService;
 
+@Service
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    public UserServiceImpl(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
+    private final UserRepository repository;
+
+    @Autowired
+    public UserServiceImpl(UserRepository repository) {
+        this.repository = repository;
     }
 
     @Override
-    public User registerUser(String fullName, String email, String password) {
-
-        if (userRepository.findByEmail(email).isPresent()) {
-            throw new BadRequestException("email already exists");
-        }
-
-        if (password == null || password.isBlank()) {
-            throw new BadRequestException("password is required");
-        }
-
+    public User createUser(String name, String email, String password, String role) {
         User user = new User(
-                fullName,
+                null,
+                name,
                 email,
-                passwordEncoder.encode(password),
-                "USER"  
+                password,
+                role
         );
-
-        return userRepository.save(user);
-    }
-
-    @Override
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("user not found"));
-    }
-
-    @Override
-    public boolean exists(String email) {
-        return userRepository.findByEmail(email).isPresent();
+        return repository.save(user);
     }
 }
