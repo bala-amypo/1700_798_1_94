@@ -4,22 +4,27 @@ import jakarta.persistence.*;
 
 @Entity
 public class Zone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String zoneName;
-    private String description;
-    private boolean active;
+    private String name;
 
-    // ===== Getters =====
-    public Long getId() { return id; }
-    public String getZoneName() { return zoneName; }
-    public String getDescription() { return description; }
-    public boolean isActive() { return active; }
+    // getters & setters
+    public Long getId() {
+        return id;
+    }
 
-    // ===== Setters =====
-    public void setZoneName(String zoneName) { this.zoneName = zoneName; }
-    public void setDescription(String description) { this.description = description; }
-    public void setActive(boolean active) { this.active = active; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
