@@ -1,22 +1,18 @@
 package com.example.demo.model;
-import java.time.Instant;
+
 import jakarta.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
-@Table(
-    name = "bin",
-    uniqueConstraints = {
-        @UniqueConstraint(columnNames = "identifier")
-    }
-)
+@Table(name = "bins")
 public class Bin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String identifier;   // ✅ fixed spelling
+    @Column(unique = true, nullable = false)
+    private String identifier;
 
     private String locationDescription;
     private Double latitude;
@@ -26,37 +22,31 @@ public class Bin {
     @JoinColumn(name = "zone_id")
     private Zone zone;
 
-    @Column(nullable = false)
-    private Double capacityLiters;  // ✅ fixed spelling
+    private Double capacityLiters;
+    private Boolean active;
 
-    @Column(nullable = false)
-    private Boolean active = true;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
 
-    @Column(nullable = false, updatable = false)
-    private Instant createdAt;
-
-    private Instant updatedAt;
-
-    /* ================= Lifecycle Hooks ================= */
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = Instant.now();
+    public Bin() {
     }
 
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = Instant.now();
+    public Bin(String identifier, String locationDescription, Double latitude,
+               Double longitude, Zone zone, Double capacityLiters,
+               Boolean active, Timestamp createdAt, Timestamp updatedAt) {
+        this.identifier = identifier;
+        this.locationDescription = locationDescription;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.zone = zone;
+        this.capacityLiters = capacityLiters;
+        this.active = active;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
-
-    /* ================= Getters & Setters ================= */
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getIdentifier() {
@@ -79,16 +69,8 @@ public class Bin {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
     }
 
     public Zone getZone() {
@@ -99,7 +81,7 @@ public class Bin {
         this.zone = zone;
     }
 
-    public Double getCapacityLiters() {     // ✅ matches service
+    public Double getCapacityLiters() {
         return capacityLiters;
     }
 
@@ -115,31 +97,11 @@ public class Bin {
         this.active = active;
     }
 
-    public Instant getCreatedAt() {
+    public Timestamp getCreatedAt() {
         return createdAt;
     }
 
-    public Instant getUpdatedAt() {
+    public Timestamp getUpdatedAt() {
         return updatedAt;
-    }
-
-    /* ================= Constructors ================= */
-
-    public Bin() {}
-
-    public Bin(Long id, String identifier, String locationDescription,
-               Double latitude, Double longitude, Zone zone,
-               Double capacityLiters, Boolean active,
-               Instant createdAt, Instant updatedAt) {
-        this.id = id;
-        this.identifier = identifier;
-        this.locationDescription = locationDescription;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.zone = zone;
-        this.capacityLiters = capacityLiters;
-        this.active = active;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
     }
 }

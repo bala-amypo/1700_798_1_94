@@ -1,106 +1,52 @@
 package com.example.demo.model;
 
-import java.time.Instant;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
-@Table(name = "usage_pattern_model")
+@Table(name = "usage_pattern_models")
 public class UsagePatternModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String patternName;
+    @ManyToOne
+    @JoinColumn(name = "bin_id")
+    private Bin bin;
 
-    @Column(length = 500)
-    private String description;
-
-    @Column(nullable = false, updatable = false)
-    private Instant createdAt;
-
-    private Instant updatedAt;
-
-    /* =======================
-       JPA Lifecycle Callbacks
-       ======================= */
-
-    @PrePersist
-    protected void onCreate() {
-        this.createdAt = Instant.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updatedAt = Instant.now();
-    }
-
-    /* =======================
-       Constructors
-       ======================= */
+    private Double avgDailyIncreaseWeekday;
+    private Double avgDailyIncreaseWeekend;
+    private Timestamp lastUpdated;
 
     public UsagePatternModel() {
     }
 
-    public UsagePatternModel(Long id, String patternName, String description,
-                             Instant createdAt, Instant updatedAt) {
-        this.id = id;
-        this.patternName = patternName;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    public UsagePatternModel(Bin bin, Double avgDailyIncreaseWeekday,
+                             Double avgDailyIncreaseWeekend, Timestamp lastUpdated) {
+        this.bin = bin;
+        this.avgDailyIncreaseWeekday = avgDailyIncreaseWeekday;
+        this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend;
+        this.lastUpdated = lastUpdated;
     }
-
-    /* =======================
-       Getters and Setters
-       ======================= */
 
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Bin getBin() {
+        return bin;
     }
 
-    public String getPatternName() {
-        return patternName;
+    public Double getAvgDailyIncreaseWeekday() {
+        return avgDailyIncreaseWeekday;
     }
 
-    public void setPatternName(String patternName) {
-        this.patternName = patternName;
+    public Double getAvgDailyIncreaseWeekend() {
+        return avgDailyIncreaseWeekend;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
+    public Timestamp getLastUpdated() {
+        return lastUpdated;
     }
 }
