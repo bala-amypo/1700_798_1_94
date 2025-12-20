@@ -7,11 +7,11 @@ import com.example.demo.service.ZoneService;
 
 import java.util.List;
 
-public class ZoneServiceImpl implements ZoneService {
+public class ZoneServiceimpl implements ZoneService {
 
     private final ZoneRepository zoneRepository;
 
-    public ZoneServiceImpl(ZoneRepository zoneRepository) {
+    public ZoneServiceimpl(ZoneRepository zoneRepository) {
         this.zoneRepository = zoneRepository;
     }
 
