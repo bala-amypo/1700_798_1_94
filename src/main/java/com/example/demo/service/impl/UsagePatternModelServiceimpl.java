@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UsagePatternModelServiceImpl implements UsagePatternModelService {
+public class UsagePatternModelServiceimpl implements UsagePatternModelService {
 
     private final UsagePatternModelRepository usagePatternModelRepository;
 
-    public UsagePatternModelServiceImpl(UsagePatternModelRepository usagePatternModelRepository) {
+    public UsagePatternModelServiceimpl(UsagePatternModelRepository usagePatternModelRepository) {
         this.usagePatternModelRepository = usagePatternModelRepository;
     }
 
