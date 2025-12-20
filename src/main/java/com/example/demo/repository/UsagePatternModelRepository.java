@@ -1,11 +1,10 @@
 package com.example.demo.repository;
 
-import java.util.List;   // ⭐ ADD THIS
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.example.demo.model.UsagePatternModel;
+import com.example.demo.model.Bin;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-public interface UsagePatternModelRepository
-        extends JpaRepository<UsagePatternModel, Long> {
-
-    List<UsagePatternModel> findByBinId(Long binId);
+public interface UsagePatternModelRepository extends JpaRepository<UsagePatternModel, Long> {
+    Optional<UsagePatternModel> findTop1ByBinOrderByLastUpdatedDesc(Bin bin);
 }

@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
-public interface UserService {
+import com.example.demo.model.User;
 
-    boolean exists(String email);
+public interface UserService {
+    User registerUser(String fullName, String email, String password);
+    User getByEmail(String email);
 }

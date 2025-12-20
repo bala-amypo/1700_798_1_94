@@ -1,32 +1,44 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Zone;
 import com.example.demo.repository.ZoneRepository;
 import com.example.demo.service.ZoneService;
 
-@Service
+import java.util.List;
+
 public class ZoneServiceImpl implements ZoneService {
 
-    @Autowired
-    private ZoneRepository repo;
+    private final ZoneRepository zoneRepository;
 
-    @Override
+    public ZoneServiceImpl(ZoneRepository zoneRepository) {
+        this.zoneRepository = zoneRepository;
+    }
+
     public Zone createZone(Zone zone) {
-        return repo.save(zone);
+        zone.setActive(true);
+        return zoneRepository.save(zone);
     }
 
-    @Override
-    public List<Zone> getAllZones() {
-        return repo.findAll();
+    public Zone updateZone(Long id, Zone zone) {
+        Zone existing = getZoneById(id);
+        existing.setZoneName(zone.getZoneName());
+        existing.setDescription(zone.getDescription());
+        return zoneRepository.save(existing);
     }
 
-    @Override
     public Zone getZoneById(Long id) {
-        return repo.findById(id).orElse(null);
+        return zoneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("zone not found"));
+    }
+
+    public List<Zone> getAllZones() {
+        return zoneRepository.findAll();
+    }
+
+    public void deactivateZone(Long id) {
+        Zone zone = getZoneById(id);
+        zone.setActive(false);
+        zoneRepository.save(zone);
     }
 }
