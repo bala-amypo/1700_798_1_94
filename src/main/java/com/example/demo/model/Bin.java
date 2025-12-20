@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(
-    name = "bins",
+    name = "bin",
     uniqueConstraints = {
         @UniqueConstraint(columnNames = "identifier")
     }
@@ -18,7 +18,7 @@ public class Bin {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String identifier;
+    private String identifier;   // ✅ fixed spelling
 
     private String locationDescription;
     private Double latitude;
@@ -29,7 +29,7 @@ public class Bin {
     private Zone zone;
 
     @Column(nullable = false)
-    private Double capacityLiters;
+    private Double capacityLiters;  // ✅ fixed spelling
 
     @Column(nullable = false)
     private Boolean active = true;
@@ -38,6 +38,8 @@ public class Bin {
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    /* ================= Lifecycle Hooks ================= */
 
     @PrePersist
     protected void onCreate() {
@@ -48,6 +50,8 @@ public class Bin {
     protected void onUpdate() {
         this.updatedAt = Instant.now();
     }
+
+    /* ================= Getters & Setters ================= */
 
     public Long getId() {
         return id;
@@ -97,7 +101,7 @@ public class Bin {
         this.zone = zone;
     }
 
-    public Double getCapacityLiters() {
+    public Double getCapacityLiters() {     // ✅ matches service
         return capacityLiters;
     }
 
@@ -121,23 +125,14 @@ public class Bin {
         return updatedAt;
     }
 
-    // ================= CONSTRUCTORS =================
+    /* ================= Constructors ================= */
 
-    public Bin() {
-    }
+    public Bin() {}
 
-    public Bin(
-            Long id,
-            String identifier,
-            String locationDescription,
-            Double latitude,
-            Double longitude,
-            Zone zone,
-            Double capacityLiters,
-            Boolean active,
-            Instant createdAt,
-            Instant updatedAt
-    ) {
+    public Bin(Long id, String identifier, String locationDescription,
+               Double latitude, Double longitude, Zone zone,
+               Double capacityLiters, Boolean active,
+               Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.identifier = identifier;
         this.locationDescription = locationDescription;
