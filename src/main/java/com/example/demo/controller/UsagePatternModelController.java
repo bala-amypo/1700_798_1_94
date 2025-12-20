@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/models")
+@RequestMapping("/usage-patterns")
 public class UsagePatternModelController {
 
     private final UsagePatternModelService service;
@@ -17,23 +17,25 @@ public class UsagePatternModelController {
     }
 
     @PostMapping
-    public UsagePatternModel create(@RequestBody UsagePatternModel model) {
+    public UsagePatternModel createModel(@RequestBody UsagePatternModel model) {
         return service.createModel(model);
     }
 
     @PutMapping("/{id}")
-    public UsagePatternModel update(@PathVariable Long id,
-                                    @RequestBody UsagePatternModel model) {
+    public UsagePatternModel updateModel(
+            @PathVariable Long id,
+            @RequestBody UsagePatternModel model) {
         return service.updateModel(id, model);
     }
 
+    // 🔥 FIXED: returns LIST
     @GetMapping("/bin/{binId}")
-    public UsagePatternModel getForBin(@PathVariable Long binId) {
+    public List<UsagePatternModel> getModelForBin(@PathVariable Long binId) {
         return service.getModelForBin(binId);
     }
 
     @GetMapping
-    public List<UsagePatternModel> getAll() {
+    public List<UsagePatternModel> getAllModels() {
         return service.getAllModels();
     }
 }
