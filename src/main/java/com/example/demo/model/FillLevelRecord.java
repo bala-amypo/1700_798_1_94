@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "fill_level_records")
 public class FillLevelRecord {
 
     @Id
@@ -12,41 +11,44 @@ public class FillLevelRecord {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bin_id")
+    @JoinColumn(name = "bin_id", nullable = false)
     private Bin bin;
 
     private Double fillPercentage;
+
     private Timestamp recordedAt;
-    private Boolean isWeekend;
 
-    public FillLevelRecord() {
+    // Getter and setter for 'bin'
+    public Bin getBin() {
+        return bin;
     }
 
-    public FillLevelRecord(Bin bin, Double fillPercentage,
-                           Timestamp recordedAt, Boolean isWeekend) {
+    public void setBin(Bin bin) {
         this.bin = bin;
-        this.fillPercentage = fillPercentage;
-        this.recordedAt = recordedAt;
-        this.isWeekend = isWeekend;
     }
 
+    // Other getters and setters
     public Long getId() {
         return id;
     }
 
-    public Bin getBin() {
-        return bin;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Double getFillPercentage() {
         return fillPercentage;
     }
 
+    public void setFillPercentage(Double fillPercentage) {
+        this.fillPercentage = fillPercentage;
+    }
+
     public Timestamp getRecordedAt() {
         return recordedAt;
     }
 
-    public Boolean getIsWeekend() {
-        return isWeekend;
+    public void setRecordedAt(Timestamp recordedAt) {
+        this.recordedAt = recordedAt;
     }
 }
