@@ -1,39 +1,38 @@
 package com.example.demo.controller;
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+
 import com.example.demo.model.OverflowPrediction;
 import com.example.demo.service.OverflowPredictionService;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/predictions")
 public class OverflowPredictionController {
 
-    private final OverflowPredictionService predictionService;
+    private final OverflowPredictionService service;
 
-    @Autowired
-    public OverflowPredictionController(OverflowPredictionService predictionService) {
-        this.predictionService = predictionService;
+    public OverflowPredictionController(OverflowPredictionService service) {
+        this.service = service;
     }
 
     @PostMapping("/generate/{binId}")
-    public OverflowPrediction generatePrediction(@PathVariable Long binId) {
-        return predictionService.generatePrediction(binId);
+    public OverflowPrediction generate(@PathVariable Long binId) {
+        return service.generatePrediction(binId);
     }
 
     @GetMapping("/{id}")
-    public OverflowPrediction getPrediction(@PathVariable Long id) {
-        return predictionService.getPredictionById(id);
+    public OverflowPrediction get(@PathVariable Long id) {
+        return service.getPredictionById(id);
     }
 
     @GetMapping("/bin/{binId}")
-    public List<OverflowPrediction> getPredictionsForBin(@PathVariable Long binId) {
-        return predictionService.getPredictionsForBin(binId);
+    public List<OverflowPrediction> getForBin(@PathVariable Long binId) {
+        return service.getPredictionsForBin(binId);
     }
 
     @GetMapping("/zone/{zoneId}/latest")
-    public List<OverflowPrediction> getLatestPredictionsForZone(
-            @PathVariable Long zoneId) {
-        return predictionService.getLatestPredictionsForZone(zoneId);
+    public List<OverflowPrediction> latestForZone(@PathVariable Long zoneId) {
+        return service.getLatestPredictionsForZone(zoneId);
     }
 }
