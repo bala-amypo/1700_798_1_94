@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "overflow_predictions")
@@ -12,25 +13,51 @@ public class OverflowPrediction {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bin_id")
     private Bin bin;
 
-    @Column(name = "predicted_fill_level")
-    private Double predictedFillLevel;
+    private Date predictedFullDate;
+    private Integer daysUntilFull;
 
-    @Column(name = "predicted_time")
-    private Timestamp predictedTime;
+    @ManyToOne
+    private UsagePatternModel modelUsed;
 
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    private Timestamp generatedAt;
 
-    public Bin getBin() { return bin; }
-    public void setBin(Bin bin) { this.bin = bin; }
+    public OverflowPrediction() {
+    }
 
-    public Double getPredictedFillLevel() { return predictedFillLevel; }
-    public void setPredictedFillLevel(Double predictedFillLevel) { this.predictedFillLevel = predictedFillLevel; }
+    public OverflowPrediction(Bin bin, Date predictedFullDate,
+                              Integer daysUntilFull,
+                              UsagePatternModel modelUsed,
+                              Timestamp generatedAt) {
+        this.bin = bin;
+        this.predictedFullDate = predictedFullDate;
+        this.daysUntilFull = daysUntilFull;
+        this.modelUsed = modelUsed;
+        this.generatedAt = generatedAt;
+    }
 
-    public Timestamp getPredictedTime() { return predictedTime; }
-    public void setPredictedTime(Timestamp predictedTime) { this.predictedTime = predictedTime; }
+    public Long getId() {
+        return id;
+    }
+
+    public Bin getBin() {
+        return bin;
+    }
+
+    public Date getPredictedFullDate() {
+        return predictedFullDate;
+    }
+
+    public Integer getDaysUntilFull() {
+        return daysUntilFull;
+    }
+
+    public UsagePatternModel getModelUsed() {
+        return modelUsed;
+    }
+
+    public Timestamp getGeneratedAt() {
+        return generatedAt;
+    }
 }
