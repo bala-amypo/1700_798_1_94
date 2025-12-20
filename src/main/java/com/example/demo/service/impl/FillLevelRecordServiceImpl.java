@@ -1,39 +1,55 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Bin;
 import com.example.demo.model.FillLevelRecord;
+import com.example.demo.repository.BinRepository;
 import com.example.demo.repository.FillLevelRecordRepository;
 import com.example.demo.service.FillLevelRecordService;
 
-@Service
+import java.sql.Timestamp;
+import java.util.List;
+
 public class FillLevelRecordServiceImpl implements FillLevelRecordService {
 
-    @Autowired
-    private FillLevelRecordRepository repo;
+    private final FillLevelRecordRepository recordRepository;
+    private final BinRepository binRepository;
 
-    @Override
+    public FillLevelRecordServiceImpl(FillLevelRecordRepository recordRepository,
+                                      BinRepository binRepository) {
+        this.recordRepository = recordRepository;
+        this.binRepository = binRepository;
+    }
+
     public FillLevelRecord createRecord(FillLevelRecord record) {
-        return repo.save(record);
+        if (record.getFillPercentage() < 0 || record.getFillPercentage() > 100) {
+            throw new BadRequestException("fill percentage invalid");
+        }
+
+        if (record.getRecordedAt().after(new Timestamp(System.currentTimeMillis()))) {
+            throw new BadRequestException("future date not allowed");
+        }
+
+        Bin bin = binRepository.findById(record.getBin().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("bin not found"));
+
+        if (!bin.getActive()) {
+            throw new BadRequestException("bin inactive");
+        }
+
+        record.setBin(bin);
+        return recordRepository.save(record);
     }
 
-    @Override
-    public Optional<FillLevelRecord> getRecordById(Long id) {
-        return repo.findById(id);
+    public FillLevelRecord getRecordById(Long id) {
+        return recordRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("record not found"));
     }
 
-    @Override
     public List<FillLevelRecord> getRecordsForBin(Long binId) {
-        return repo.findByBinId(binId);
+        Bin bin = binRepository.findById(binId)
+                .orElseThrow(() -> new ResourceNotFoundException("bin not found"));
+        return recordRepository.findByBinOrderByRecordedAtDesc(bin);
     }
-
-    @Override
-public List<FillLevelRecord> getRecentRecords(Long binId, int limit) {
-    return repo.findTopNByBinIdOrderByRecordedAtDesc(binId, limit);
-}
-
 }

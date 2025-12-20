@@ -1,19 +1,29 @@
 package com.example.demo.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.exception.BadRequestException;
+import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.User;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
-@Service
+
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserRepository repo;
+    private final UserRepository userRepository;
 
-    @Override
-    public boolean exists(String email) {
-        return repo.existsByEmail(email);
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public User registerUser(String fullName, String email, String password) {
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new BadRequestException("email exists");
+        }
+        User user = new User(fullName, email, password, "USER");
+        return userRepository.save(user);
+    }
+
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("user not found"));
     }
 }
