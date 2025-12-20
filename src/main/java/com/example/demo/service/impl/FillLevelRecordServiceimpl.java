@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FillLevelRecordServiceImpl implements FillLevelRecordService {
+public class FillLevelRecordServiceimpl implements FillLevelRecordService {
 
     private final FillLevelRecordRepository fillLevelRecordRepository;
 
-    public FillLevelRecordServiceImpl(FillLevelRecordRepository fillLevelRecordRepository) {
+    public FillLevelRecordServiceimpl(FillLevelRecordRepository fillLevelRecordRepository) {
         this.fillLevelRecordRepository = fillLevelRecordRepository;
     }
 
