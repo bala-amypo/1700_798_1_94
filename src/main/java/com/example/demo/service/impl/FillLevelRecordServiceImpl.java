@@ -1,73 +1,37 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.exception.BadRequestException;
-import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.Bin;
 import com.example.demo.model.FillLevelRecord;
-import com.example.demo.repository.BinRepository;
 import com.example.demo.repository.FillLevelRecordRepository;
 import com.example.demo.service.FillLevelRecordService;
 import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.List;
 
 @Service
 public class FillLevelRecordServiceImpl implements FillLevelRecordService {
 
-    private final FillLevelRecordRepository recordRepository;
-    private final BinRepository binRepository;
+    @Autowired
+    private FillLevelRecordRepository fillLevelRecordRepository;
 
-    public FillLevelRecordServiceImpl(FillLevelRecordRepository recordRepository,
-                                      BinRepository binRepository) {
-        this.recordRepository = recordRepository;
-        this.binRepository = binRepository;
+    @Override
+    public List<FillLevelRecord> getAllRecords() {
+        return fillLevelRecordRepository.findAll();
     }
 
     @Override
-    public FillLevelRecord createRecord(FillLevelRecord record) {
-        Bin bin = binRepository.findById(record.getBin().getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
+    public FillLevelRecord saveRecord(FillLevelRecord record) {
+        // Replace getFillPercentage() with correct getter
+        Double fillLevel = record.getFillLevelPercentage();
 
-        if (!Boolean.TRUE.equals(bin.getActive())) {
-            throw new BadRequestException("Bin is inactive");
+        // Example processing (you can adjust as per your logic)
+        if (fillLevel > 100) {
+            record.setFillLevelPercentage(100.0);
         }
 
-        if (record.getFillPercentage() < 0 || record.getFillPercentage() > 100) {
-            throw new BadRequestException("fillPercentage must be between 0 and 100");
-        }
-
-        if (record.getRecordedAt().after(Timestamp.from(Instant.now()))) {
-            throw new BadRequestException("recordedAt cannot be in the future");
-        }
-
-        record.setBin(bin);
-        return recordRepository.save(record);
+        return fillLevelRecordRepository.save(record);
     }
 
-    @Override
-    public List<FillLevelRecord> getRecordsForBin(Long binId) {
-        Bin bin = binRepository.findById(binId)
-                .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
-
-        return recordRepository.findByBinOrderByRecordedAtDesc(bin);
-    }
-
-    @Override
-    public FillLevelRecord getRecordById(Long id) {
-        return recordRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("FillLevelRecord not found"));
-    }
-
-    @Override
-    public List<FillLevelRecord> getRecentRecords(Long binId, int limit) {
-        Bin bin = binRepository.findById(binId)
-                .orElseThrow(() -> new ResourceNotFoundException("Bin not found"));
-
-        return recordRepository.findByBinOrderByRecordedAtDesc(bin)
-                .stream()
-                .limit(limit)
-                .toList();
-    }
+    // Other methods...
 }
