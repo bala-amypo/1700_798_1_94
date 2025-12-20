@@ -26,7 +26,8 @@ public class FillLevelRecordController {
 
     @GetMapping("/{id}")
     public FillLevelRecord getRecord(@PathVariable Long id) {
-        return recordService.getRecordById(id);
+        return recordService.getRecordById(id).orElseThrow();
+;
     }
 
     @GetMapping("/bin/{binId}")
