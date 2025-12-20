@@ -1,53 +1,52 @@
 package com.example.demo.model;
-import java.time.Instant;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
-import jakarta.persistence.PreUpdate;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
 
+import java.time.Instant;
+
+import jakarta.persistence.*;
 
 @Entity
 @Table(
-    name="bin",
-    uniqueConstraints={
-        @UniqueConstraint(columnNames="identifier")
+    name = "bins",
+    uniqueConstraints = {
+        @UniqueConstraint(columnNames = "identifier")
     }
 )
 public class Bin {
-   @Id 
-   @GeneratedValue(strategy=GenerationType.IDENTITY)
-   private Long id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false, unique = true)
-   private String identifer;
-   private String locationDescription;
-   private Double latitude;
-   private Double longitude;
-   @ManyToOne
-   @JoinColumn(name="Zone_id")
-   private Zone zone;
-   @Column(nullable = false)
-   private Double capcityLiters;
-   @Column(nullable = false)
-   private Boolean active = true;
-   @Column(nullable = false, updatable = false)
+    private String identifier;
+
+    private String locationDescription;
+    private Double latitude;
+    private Double longitude;
+
+    @ManyToOne
+    @JoinColumn(name = "zone_id")
+    private Zone zone;
+
+    @Column(nullable = false)
+    private Double capacityLiters;
+
+    @Column(nullable = false)
+    private Boolean active = true;
+
+    @Column(nullable = false, updatable = false)
     private Instant createdAt;
+
     private Instant updatedAt;
 
     @PrePersist
     protected void onCreate() {
-        createdAt = Instant.now();
+        this.createdAt = Instant.now();
     }
 
     @PreUpdate
     protected void onUpdate() {
-        updatedAt = Instant.now();
+        this.updatedAt = Instant.now();
     }
 
     public Long getId() {
@@ -58,12 +57,12 @@ public class Bin {
         this.id = id;
     }
 
-    public String getIdentifer() {
-        return identifer;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setIdentifer(String identifer) {
-        this.identifer = identifer;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public String getLocationDescription() {
@@ -98,12 +97,12 @@ public class Bin {
         this.zone = zone;
     }
 
-    public Double getCapcityLiters() {
-        return capcityLiters;
+    public Double getCapacityLiters() {
+        return capacityLiters;
     }
 
-    public void setCapcityLiters(Double capcityLiters) {
-        this.capcityLiters = capcityLiters;
+    public void setCapacityLiters(Double capacityLiters) {
+        this.capacityLiters = capacityLiters;
     }
 
     public Boolean getActive() {
@@ -118,36 +117,36 @@ public class Bin {
         return createdAt;
     }
 
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
     public Instant getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+    // ================= CONSTRUCTORS =================
 
     public Bin() {
     }
 
-    public Bin(Long id, String identifer, String locationDescription, Double latitude, Double longitude, Zone zone,
-            Double capcityLiters, Boolean active, Instant createdAt, Instant updatedAt) {
+    public Bin(
+            Long id,
+            String identifier,
+            String locationDescription,
+            Double latitude,
+            Double longitude,
+            Zone zone,
+            Double capacityLiters,
+            Boolean active,
+            Instant createdAt,
+            Instant updatedAt
+    ) {
         this.id = id;
-        this.identifer = identifer;
+        this.identifier = identifier;
         this.locationDescription = locationDescription;
         this.latitude = latitude;
         this.longitude = longitude;
         this.zone = zone;
-        this.capcityLiters = capcityLiters;
+        this.capacityLiters = capacityLiters;
         this.active = active;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
-
-
-
-
 }
