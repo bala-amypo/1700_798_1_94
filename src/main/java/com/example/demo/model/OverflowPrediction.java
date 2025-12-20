@@ -1,16 +1,33 @@
 package com.example.demo.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import java.sql.Timestamp;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Entity
 public class OverflowPrediction {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
     private Bin bin;
-    private int predictedFillLevel;
-    private Timestamp predictedTime;
-    private UsagePatternModel usagePattern;
+
+    @ManyToOne
+    private Zone zone;
+
+    private LocalDateTime createdAt;
+    private Double predictedFillLevel;
+
+    // ===== Getters =====
+    public Long getId() { return id; }
+    public Bin getBin() { return bin; }
+    public Zone getZone() { return zone; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+    public Double getPredictedFillLevel() { return predictedFillLevel; }
+
+    // ===== Setters =====
+    public void setBin(Bin bin) { this.bin = bin; }
+    public void setZone(Zone zone) { this.zone = zone; }
+    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public void setPredictedFillLevel(Double predictedFillLevel) { this.predictedFillLevel = predictedFillLevel; }
 }
