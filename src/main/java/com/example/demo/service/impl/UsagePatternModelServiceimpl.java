@@ -17,13 +17,23 @@ public class UsagePatternModelServiceimpl implements UsagePatternModelService {
     }
 
     @Override
-    public UsagePatternModel createUsagePatternModel(UsagePatternModel model) {
+    public UsagePatternModel createModel(UsagePatternModel model) {
         return usagePatternModelRepository.save(model);
     }
 
     @Override
-    public List<UsagePatternModel> getUsagePatternsForBin(Long binId) {
-        // Adjust method name in repository according to your actual repo
+    public UsagePatternModel updateModel(Long id, UsagePatternModel model) {
+        model.setId(id);
+        return usagePatternModelRepository.save(model);
+    }
+
+    @Override
+    public List<UsagePatternModel> getModelForBin(Long binId) {
         return usagePatternModelRepository.findByBinIdOrderByCreatedAtDesc(binId);
+    }
+
+    @Override
+    public List<UsagePatternModel> getAllModels() {
+        return usagePatternModelRepository.findAll();
     }
 }
