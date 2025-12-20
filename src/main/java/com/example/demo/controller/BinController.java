@@ -12,27 +12,22 @@ public class BinController {
 
     private final BinService binService;
 
-    public BinController(BinService binService) {
+    public BinController(BinService binService) { // constructor injection
         this.binService = binService;
     }
 
     @PostMapping
-    public Bin create(@RequestBody Bin bin) {
+    public Bin createBin(@RequestBody Bin bin) {
         return binService.createBin(bin);
     }
 
-    @PutMapping("/{id}")
-    public Bin update(@PathVariable Long id, @RequestBody Bin bin) {
-        return binService.updateBin(id, bin);
-    }
-
     @GetMapping("/{id}")
-    public Bin get(@PathVariable Long id) {
+    public Bin getBin(@PathVariable Long id) {
         return binService.getBinById(id);
     }
 
     @GetMapping
-    public List<Bin> getAll() {
+    public List<Bin> getAllBins() {
         return binService.getAllBins();
     }
 
