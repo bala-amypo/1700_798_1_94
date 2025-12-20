@@ -15,12 +15,18 @@ public class OverflowPredictionServiceimpl implements OverflowPredictionService 
     private OverflowPredictionRepository overflowPredictionRepository;
 
     @Override
-    public List<OverflowPrediction> getPredictionsForBin(Long binId) {
-        return overflowPredictionRepository.findByBinId(binId);
+    public OverflowPrediction getPredictionById(Long id) {
+        return overflowPredictionRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Prediction not found for id: " + id));
     }
 
     @Override
     public List<OverflowPrediction> getLatestPredictionsForZone(Long zoneId) {
         return overflowPredictionRepository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
+    }
+
+    @Override
+    public List<OverflowPrediction> getPredictionsForBin(Long binId) {
+        return overflowPredictionRepository.findByBinId(binId);
     }
 }
