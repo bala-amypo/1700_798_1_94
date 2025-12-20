@@ -7,13 +7,13 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class UserServiceImpl implements UserService {
+public class UserServiceimpl implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     // Constructor injection ONLY (TestNG compatible)
-    public UserServiceImpl(UserRepository userRepository,
+    public UserServiceimpl(UserRepository userRepository,
                            PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
