@@ -3,21 +3,27 @@ package com.example.demo.service.impl;
 import com.example.demo.model.OverflowPrediction;
 import com.example.demo.repository.OverflowPredictionRepository;
 import com.example.demo.service.OverflowPredictionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
 public class OverflowPredictionServiceimpl implements OverflowPredictionService {
 
-    private final OverflowPredictionRepository overflowPredictionRepository;
+    @Autowired
+    private OverflowPredictionRepository overflowPredictionRepository;
 
-    public OverflowPredictionServiceimpl(OverflowPredictionRepository overflowPredictionRepository) {
-        this.overflowPredictionRepository = overflowPredictionRepository;
+    @Override
+    public List<OverflowPrediction> getPredictionsForBin(Long binId) {
+        return overflowPredictionRepository.findByBinId(binId);
     }
 
     @Override
-    public List<OverflowPrediction> getLatestPredictionsForZone(Long zoneId) {
-        // Example: replace with actual repository method
-        return overflowPredictionRepository.findLatestByZone(zoneId);
+    public OverflowPrediction getLatestPredictionByZone(Long zoneId) {
+        List<OverflowPrediction> list = overflowPredictionRepository.findTopByZoneIdOrderByCreatedAtDesc(zoneId);
+        return list.isEmpty() ? null : list.get(0);
     }
+
+    // Add other service methods if needed
 }
