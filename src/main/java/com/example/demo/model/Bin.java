@@ -11,9 +11,10 @@ public class Bin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String identifier;
 
+    @Column(name = "location_description")
     private String locationDescription;
 
     private Double latitude;
@@ -23,32 +24,17 @@ public class Bin {
     @JoinColumn(name = "zone_id")
     private Zone zone;
 
+    @Column(name = "capacity_liters")
     private Double capacityLiters;
 
     private Boolean active;
 
+    @Column(name = "created_at")
     private Timestamp createdAt;
-    private Timestamp updatedAt;
 
-    public Bin() {}
-
-    public Bin(String identifier, String locationDescription, Double latitude, Double longitude,
-               Zone zone, Double capacityLiters, Boolean active,
-               Timestamp createdAt, Timestamp updatedAt) {
-        this.identifier = identifier;
-        this.locationDescription = locationDescription;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.zone = zone;
-        this.capacityLiters = capacityLiters;
-        this.active = active;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
-    }
-
-    // 🔹 GETTERS & SETTERS
-
+    // Getters and Setters
     public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
     public String getIdentifier() { return identifier; }
     public void setIdentifier(String identifier) { this.identifier = identifier; }
@@ -73,7 +59,4 @@ public class Bin {
 
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
-
-    public Timestamp getUpdatedAt() { return updatedAt; }
-    public void setUpdatedAt(Timestamp updatedAt) { this.updatedAt = updatedAt; }
 }

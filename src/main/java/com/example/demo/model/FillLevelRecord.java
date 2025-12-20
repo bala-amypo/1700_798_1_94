@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
+@Table(name = "fill_level_records")
 public class FillLevelRecord {
 
     @Id
@@ -11,44 +12,31 @@ public class FillLevelRecord {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "bin_id", nullable = false)
+    @JoinColumn(name = "bin_id")
     private Bin bin;
 
-    private Double fillPercentage;
+    @Column(name = "fill_level_percentage")
+    private Double fillLevelPercentage;
 
+    @Column(name = "recorded_at")
     private Timestamp recordedAt;
 
-    // Getter and setter for 'bin'
-    public Bin getBin() {
-        return bin;
-    }
+    @Column(name = "is_weekend")
+    private Boolean isWeekend;
 
-    public void setBin(Bin bin) {
-        this.bin = bin;
-    }
+    // Getters and Setters
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
 
-    // Other getters and setters
-    public Long getId() {
-        return id;
-    }
+    public Bin getBin() { return bin; }
+    public void setBin(Bin bin) { this.bin = bin; }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public Double getFillLevelPercentage() { return fillLevelPercentage; }
+    public void setFillLevelPercentage(Double fillLevelPercentage) { this.fillLevelPercentage = fillLevelPercentage; }
 
-    public Double getFillPercentage() {
-        return fillPercentage;
-    }
+    public Timestamp getRecordedAt() { return recordedAt; }
+    public void setRecordedAt(Timestamp recordedAt) { this.recordedAt = recordedAt; }
 
-    public void setFillPercentage(Double fillPercentage) {
-        this.fillPercentage = fillPercentage;
-    }
-
-    public Timestamp getRecordedAt() {
-        return recordedAt;
-    }
-
-    public void setRecordedAt(Timestamp recordedAt) {
-        this.recordedAt = recordedAt;
-    }
+    public Boolean getIsWeekend() { return isWeekend; }
+    public void setIsWeekend(Boolean isWeekend) { this.isWeekend = isWeekend; }
 }
