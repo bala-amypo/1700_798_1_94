@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class OverflowPredictionServiceImpl implements OverflowPredictionService {
+public class OverflowPredictionServiceimpl implements OverflowPredictionService {
 
     private final OverflowPredictionRepository overflowPredictionRepository;
 
-    public OverflowPredictionServiceImpl(OverflowPredictionRepository overflowPredictionRepository) {
+    public OverflowPredictionServiceimpl(OverflowPredictionRepository overflowPredictionRepository) {
         this.overflowPredictionRepository = overflowPredictionRepository;
     }
 

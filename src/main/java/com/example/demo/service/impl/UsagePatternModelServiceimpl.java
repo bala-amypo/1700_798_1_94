@@ -10,12 +10,12 @@ import com.example.demo.service.UsagePatternModelService;
 
 import java.util.List;
 
-public class UsagePatternModelServiceImpl implements UsagePatternModelService {
+public class UsagePatternModelServiceimpl implements UsagePatternModelService {
 
     private final UsagePatternModelRepository modelRepository;
     private final BinRepository binRepository;
 
-    public UsagePatternModelServiceImpl(UsagePatternModelRepository modelRepository,
+    public UsagePatternModelServiceimpl(UsagePatternModelRepository modelRepository,
                                         BinRepository binRepository) {
         this.modelRepository = modelRepository;
         this.binRepository = binRepository;
