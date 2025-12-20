@@ -12,12 +12,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class BinServiceImpl implements BinService {
+public class BinServiceimpl implements BinService {
 
     private final BinRepository binRepository;
     private final ZoneRepository zoneRepository;
 
-    public BinServiceImpl(BinRepository binRepository, ZoneRepository zoneRepository) {
+    public BinServiceimpl(BinRepository binRepository, ZoneRepository zoneRepository) {
         this.binRepository = binRepository;
         this.zoneRepository = zoneRepository;
     }
