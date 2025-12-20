@@ -30,4 +30,10 @@ public class FillLevelRecordServiceImpl implements FillLevelRecordService {
     public List<FillLevelRecord> getRecordsForBin(Long binId) {
         return repo.findByBinId(binId);
     }
+
+    @Override
+public List<FillLevelRecord> getRecentRecords(Long binId, int limit) {
+    return repo.findTopNByBinIdOrderByRecordedAtDesc(binId, limit);
+}
+
 }
