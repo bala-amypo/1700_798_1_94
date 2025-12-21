@@ -29,7 +29,7 @@ public class FillLevelRecordServiceimpl implements FillLevelRecordService {
 
     @Override
     public List<FillLevelRecord> getRecordsForBin(Long binId) {
-        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE); // get all records
+        Pageable pageable = PageRequest.of(0, Integer.MAX_VALUE); 
         return fillLevelRecordRepository.findByBinIdOrderByCreatedAtDesc(binId, pageable);
     }
 

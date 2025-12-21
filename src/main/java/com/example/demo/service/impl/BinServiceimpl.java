@@ -13,10 +13,8 @@ import java.util.List;
 
 @Service
 public class BinServiceimpl implements BinService {
-
     private final BinRepository binRepository;
     private final ZoneRepository zoneRepository;
-
     public BinServiceimpl(BinRepository binRepository, ZoneRepository zoneRepository) {
         this.binRepository = binRepository;
         this.zoneRepository = zoneRepository;
