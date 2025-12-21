@@ -9,9 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/predictions")
 public class OverflowPredictionController {
-
     private final OverflowPredictionService service;
-
     public OverflowPredictionController(OverflowPredictionService service) {
         this.service = service;
     }

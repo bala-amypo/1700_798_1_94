@@ -9,9 +9,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/usage-patterns")
 public class UsagePatternModelController {
-
     private final UsagePatternModelService service;
-
     public UsagePatternModelController(UsagePatternModelService service) {
         this.service = service;
     }
@@ -28,7 +26,6 @@ public class UsagePatternModelController {
         return service.updateModel(id, model);
     }
 
-    // 🔥 FIXED: returns LIST
     @GetMapping("/bin/{binId}")
     public List<UsagePatternModel> getModelForBin(@PathVariable Long binId) {
         return service.getModelForBin(binId);
