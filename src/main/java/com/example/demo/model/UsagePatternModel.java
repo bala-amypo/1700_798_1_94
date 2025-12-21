@@ -1,51 +1,40 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "usage_pattern")
 public class UsagePatternModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "bin_id")
-    private Bin bin;
+    private String patternName;
+    private Double averageUsage;
 
-    private String patternType;
-
-    private LocalDateTime createdAt;
-
+    // getters and setters
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Bin getBin() {
-        return bin;
+    public String getPatternName() {
+        return patternName;
     }
 
-    public void setBin(Bin bin) {
-        this.bin = bin;
+    public void setPatternName(String patternName) {
+        this.patternName = patternName;
     }
 
-    public String getPatternType() {
-        return patternType;
+    public Double getAverageUsage() {
+        return averageUsage;
     }
 
-    public void setPatternType(String patternType) {
-        this.patternType = patternType;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setAverageUsage(Double averageUsage) {
+        this.averageUsage = averageUsage;
     }
 }
