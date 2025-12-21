@@ -63,5 +63,6 @@ public class Bin {
          this.active = active; 
          }
     public void setZone(Zone zone) {
-         this.zone = zone; }
+         this.zone = zone;
+          }
 }
