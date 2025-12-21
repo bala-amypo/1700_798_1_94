@@ -18,13 +18,9 @@ public class UsagePatternModel {
 
     private LocalDateTime createdAt;
 
-    // ===== GETTERS & SETTERS =====
-
     public Long getId() {
         return id;
     }
-
-    // 🔥 THIS FIXES THE ERROR
     public void setId(Long id) {
         this.id = id;
     }
