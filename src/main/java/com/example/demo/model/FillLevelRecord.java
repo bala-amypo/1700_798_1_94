@@ -14,14 +14,10 @@ public class FillLevelRecord {
 
     private Double fillLevel;
     private LocalDateTime createdAt;
-
-    // ===== Getters =====
     public Long getId() { return id; }
     public Bin getBin() { return bin; }
     public Double getFillLevel() { return fillLevel; }
     public LocalDateTime getCreatedAt() { return createdAt; }
-
-    // ===== Setters =====
     public void setBin(Bin bin) { this.bin = bin; }
     public void setFillLevel(Double fillLevel) { this.fillLevel = fillLevel; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
