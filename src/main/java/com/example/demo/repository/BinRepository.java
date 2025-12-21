@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BinRepository extends JpaRepository<Bin, Long> {
-
     Optional<Bin> findByIdentifier(String identifier);
-
     List<Bin> findByZoneAndActiveTrue(Zone zone);
 }
