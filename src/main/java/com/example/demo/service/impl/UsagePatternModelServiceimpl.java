@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 public class UsagePatternModelServiceimpl implements UsagePatternModelService {
     private final UsagePatternModelRepository usagePatternModelRepository;
-
+    
     public UsagePatternModelServiceimpl(UsagePatternModelRepository usagePatternModelRepository) {
         this.usagePatternModelRepository = usagePatternModelRepository;
     }

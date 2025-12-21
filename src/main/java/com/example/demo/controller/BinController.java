@@ -13,7 +13,6 @@ import java.util.List;
 @Tag(name = "Bin Management")
 public class BinController {
     private final BinService binService;
-
     public BinController(BinService binService) {
         this.binService = binService;
     }
