@@ -5,17 +5,13 @@ import java.time.LocalDateTime;
 
 @Entity
 public class UsagePatternModel {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
     @JoinColumn(name = "bin_id")
     private Bin bin;
-
     private String patternType;
-
     private LocalDateTime createdAt;
 
     public Long getId() {
