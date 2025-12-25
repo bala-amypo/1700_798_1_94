@@ -9,4 +9,6 @@ public interface OverflowPredictionService {
     OverflowPrediction getPredictionById(Long id);
     List<OverflowPrediction> getPredictionsForBin(Long binId);
     List<OverflowPrediction> getLatestPredictionsForZone(Long zoneId);
+    OverflowPrediction getLatestPredictionForBin(Long binId);
+    void deletePrediction(Long id);
 }
