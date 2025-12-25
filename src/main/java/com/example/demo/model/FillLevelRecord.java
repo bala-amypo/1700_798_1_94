@@ -1,40 +1,20 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "fill_level_records")
 public class FillLevelRecord {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotNull(message = "Fill percentage is required")
-    @Min(value = 0, message = "Fill percentage cannot be less than 0")
-    @Max(value = 100, message = "Fill percentage cannot exceed 100")
     private Double fillPercentage;
-    
-    @NotNull(message = "Record date/time is required")
     private LocalDateTime recordedAt;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "bin_id", nullable = false)
-    @NotNull(message = "Bin is required")
+    @ManyToOne
+    @JoinColumn(name = "bin_id")
     private Bin bin;
-    
-    // Constructors
-    public FillLevelRecord() {}
-    
-    public FillLevelRecord(Long id, Double fillPercentage, LocalDateTime recordedAt) {
-        this.id = id;
-        this.fillPercentage = fillPercentage;
-        this.recordedAt = recordedAt;
-    }
     
     // Getters and Setters
     public Long getId() { return id; }

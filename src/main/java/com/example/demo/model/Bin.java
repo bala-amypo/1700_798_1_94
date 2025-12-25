@@ -1,47 +1,23 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "bins")
 public class Bin {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotBlank(message = "Identifier is required")
-    @Column(unique = true, nullable = false)
     private String identifier;
-    
-    @NotNull(message = "Capacity is required")
-    @Min(value = 1, message = "Capacity must be at least 1 liter")
     private Double capacityLiters;
-    
     private Double latitude;
     private Double longitude;
-    
     private String locationDescription;
-    
-    @Column(nullable = false)
     private Boolean active = true;
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zone_id", nullable = false)
-    @NotNull(message = "Zone is required")
+    @ManyToOne
+    @JoinColumn(name = "zone_id")
     private Zone zone;
-    
-    // Constructors
-    public Bin() {}
-    
-    public Bin(Long id, String identifier, Double capacityLiters) {
-        this.id = id;
-        this.identifier = identifier;
-        this.capacityLiters = capacityLiters;
-    }
     
     // Getters and Setters
     public Long getId() { return id; }
