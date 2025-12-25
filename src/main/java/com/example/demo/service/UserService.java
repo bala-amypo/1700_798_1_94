@@ -1,9 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.User;
-import java.util.List;
+import com.example.demo.security.CustomUserDetailsService.DemoUser;
 
 public interface UserService {
-    User saveUser(User user);
-    List<User> getAllUsers();
+    DemoUser registerUser(String name, String email, String password);
+    DemoUser getUserByEmail(String email);
 }
