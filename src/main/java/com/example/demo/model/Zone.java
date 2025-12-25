@@ -1,37 +1,16 @@
 package com.example.demo.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "zones")
 public class Zone {
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotBlank(message = "Zone name is required")
-    @Column(unique = true, nullable = false)
     private String zoneName;
-    
     private String description;
-    
-    @Column(nullable = false)
     private Boolean active = true;
-    
-    @OneToMany(mappedBy = "zone", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Bin> bins = new ArrayList<>();
-    
-    // Constructors
-    public Zone() {}
-    
-    public Zone(Long id, String zoneName) {
-        this.id = id;
-        this.zoneName = zoneName;
-    }
     
     // Getters and Setters
     public Long getId() { return id; }
@@ -45,7 +24,4 @@ public class Zone {
     
     public Boolean getActive() { return active; }
     public void setActive(Boolean active) { this.active = active; }
-    
-    public List<Bin> getBins() { return bins; }
-    public void setBins(List<Bin> bins) { this.bins = bins; }
 }

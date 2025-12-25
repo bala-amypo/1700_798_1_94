@@ -1,28 +1,24 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.model.User;
-import com.example.demo.repository.UserRepository;
+import com.example.demo.security.CustomUserDetailsService;
 import com.example.demo.service.UserService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class UserServiceimpl implements UserService {
+public class UserServiceImpl implements UserService {
+    private final CustomUserDetailsService userDetailsService;
 
-    private final UserRepository userRepository;
-
-    public UserServiceimpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserServiceImpl(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
-    public User saveUser(User user) {
-        return userRepository.save(user);
+    public CustomUserDetailsService.DemoUser registerUser(String name, String email, String password) {
+        return userDetailsService.registerUser(name, email, password);
     }
 
     @Override
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public CustomUserDetailsService.DemoUser getUserByEmail(String email) {
+        return userDetailsService.getByEmail(email);
     }
 }
