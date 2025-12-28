@@ -23,14 +23,23 @@ public class UsagePatternModel {
          }
     public void setAvgDailyIncreaseWeekday(Double avgDailyIncreaseWeekday) {
          this.avgDailyIncreaseWeekday = avgDailyIncreaseWeekday; 
+         }    
+    public Double getAvgDailyIncreaseWeekend() {
+         return avgDailyIncreaseWeekend; 
          }
-    
-    public Double getAvgDailyIncreaseWeekend() { return avgDailyIncreaseWeekend; }
-    public void setAvgDailyIncreaseWeekend(Double avgDailyIncreaseWeekend) { this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend; }
-    
-    public LocalDateTime getLastUpdated() { return lastUpdated; }
-    public void setLastUpdated(LocalDateTime lastUpdated) { this.lastUpdated = lastUpdated; }
-    
-    public Bin getBin() { return bin; }
-    public void setBin(Bin bin) { this.bin = bin; }
+    public void setAvgDailyIncreaseWeekend(Double avgDailyIncreaseWeekend) {
+         this.avgDailyIncreaseWeekend = avgDailyIncreaseWeekend;
+          }
+    public LocalDateTime getLastUpdated() {
+         return lastUpdated;
+          }
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+         this.lastUpdated = lastUpdated;
+          }
+    public Bin getBin() {
+         return bin; 
+         }
+    public void setBin(Bin bin) {
+         this.bin = bin;
+          }
 }
