@@ -58,12 +58,20 @@ public class CustomUserDetailsService implements UserDetailsService {
             this.password = password;
             this.role = role;
         }
-
-        // Getters
-        public Long getId() { return id; }
-        public String getName() { return name; }
-        public String getEmail() { return email; }
-        public String getPassword() { return password; }
-        public String getRole() { return role; }
+        public Long getId() {
+          return id;
+           }
+        public String getName() {
+         return name;
+          }
+        public String getEmail() {
+         return email;
+          }
+        public String getPassword() {
+         return password;
+          }
+        public String getRole() {
+         return role; 
+         }
     }
 }
