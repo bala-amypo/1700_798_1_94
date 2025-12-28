@@ -9,7 +9,6 @@ public class ApiResponse {
         this.success = success;
     }
     
-    // Getters and Setters
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }
     
