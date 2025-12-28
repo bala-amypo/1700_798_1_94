@@ -12,7 +12,7 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
     private final SecretKey key;
-    private final long jwtExpirationInMs = 86400000; // 24 hours
+    private final long jwtExpirationInMs = 86400000; 
 
     public JwtTokenProvider(@Value("${jwt.secret:VerySecretKeyForJwtDemo1234567890VerySecretKeyForJwtDemo1234567890VerySecretKeyForJwtDemo1234567890}") String secretKey) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes());

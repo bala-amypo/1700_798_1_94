@@ -14,7 +14,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final Map<String, DemoUser> users = new HashMap<>();
 
     public CustomUserDetailsService() {
-        // Default admin user
         users.put("admin@city.com", new DemoUser(1L, "Admin", "admin@city.com", "admin123", "ADMIN"));
     }
 
