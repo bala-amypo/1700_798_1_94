@@ -33,9 +33,15 @@ public class OverflowPrediction {
          this.predictedFullDate = predictedFullDate; 
          }
     public Bin getBin() {
-         return bin; }
-    public void setBin(Bin bin) { this.bin = bin; }
-    
-    public UsagePatternModel getModelUsed() { return modelUsed; }
-    public void setModelUsed(UsagePatternModel modelUsed) { this.modelUsed = modelUsed; }
+         return bin; 
+         }
+    public void setBin(Bin bin) {
+         this.bin = bin; 
+         }
+    public UsagePatternModel getModelUsed() {
+         return modelUsed;
+          }
+    public void setModelUsed(UsagePatternModel modelUsed) {
+         this.modelUsed = modelUsed; 
+         }
 }
