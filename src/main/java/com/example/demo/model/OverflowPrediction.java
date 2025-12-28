@@ -1,36 +1,39 @@
 package com.example.demo.model;
-
 import jakarta.persistence.*;
 import java.time.LocalDate;
-
 @Entity
 public class OverflowPrediction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
     private Integer daysUntilFull;
     private LocalDate predictedFullDate;
-    
     @ManyToOne
     @JoinColumn(name = "bin_id")
     private Bin bin;
-    
     @ManyToOne
     @JoinColumn(name = "model_id")
     private UsagePatternModel modelUsed;
-    
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    
-    public Integer getDaysUntilFull() { return daysUntilFull; }
-    public void setDaysUntilFull(Integer daysUntilFull) { this.daysUntilFull = daysUntilFull; }
-    
-    public LocalDate getPredictedFullDate() { return predictedFullDate; }
-    public void setPredictedFullDate(LocalDate predictedFullDate) { this.predictedFullDate = predictedFullDate; }
-    
-    public Bin getBin() { return bin; }
+    public Long getId() {
+         return id; 
+         }
+    public void setId(Long id) {
+         this.id = id;
+         }
+    public Integer getDaysUntilFull() {
+         return daysUntilFull; 
+         }
+    public void setDaysUntilFull(Integer daysUntilFull) {
+          this.daysUntilFull = daysUntilFull; 
+          }
+    public LocalDate getPredictedFullDate() {
+         return predictedFullDate;
+          }
+    public void setPredictedFullDate(LocalDate predictedFullDate) {
+         this.predictedFullDate = predictedFullDate; 
+         }
+    public Bin getBin() {
+         return bin; }
     public void setBin(Bin bin) { this.bin = bin; }
     
     public UsagePatternModel getModelUsed() { return modelUsed; }
