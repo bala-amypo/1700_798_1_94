@@ -18,18 +18,28 @@ public class Bin {
     @ManyToOne
     @JoinColumn(name = "zone_id")
     private Zone zone;
+        public Long getId() {
+          return id; 
+         }
+    public void setId(Long id) { 
+          this.id = id;
+         }
     
-    // Getters and Setters
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    
-    public String getIdentifier() { return identifier; }
-    public void setIdentifier(String identifier) { this.identifier = identifier; }
-    
-    public Double getCapacityLiters() { return capacityLiters; }
-    public void setCapacityLiters(Double capacityLiters) { this.capacityLiters = capacityLiters; }
-    
-    public Double getLatitude() { return latitude; }
+    public String getIdentifier() {
+         return identifier;
+         }
+    public void setIdentifier(String identifier) {
+         this.identifier = identifier; 
+         }
+    public Double getCapacityLiters() {
+         return capacityLiters; 
+         }
+    public void setCapacityLiters(Double capacityLiters) {
+         this.capacityLiters = capacityLiters; 
+         }
+    public Double getLatitude() {
+         return latitude; 
+         }
     public void setLatitude(Double latitude) { this.latitude = latitude; }
     
     public Double getLongitude() { return longitude; }
